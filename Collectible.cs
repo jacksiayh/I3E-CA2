@@ -1,52 +1,21 @@
 /*
-* Author: Sia yong hong
-* Date of creation: 18th May 2024
-* Description: Code for collectibles
+* Author: Sia Yong Hong
+* Date of creation: 26th May 2024
+* Description: Code for all the collectibles
 */
 using System.Collections;
 using System.Collections.Generic;
-using StarterAssets;
+using UnityEditor;
 using UnityEngine;
-
+using StarterAssets;
 public class Collectible : MonoBehaviour
 {
-    int coinpoints = 5;
-
-    
-    /// <summary>
-    /// The score value that this collectible is worth.
-    /// </summary>
-    public int myScore = 5;
-
-    /// <summary>
-    /// Performs actions related to collection of the collectible
-    /// </summary>
-    public void Collected()
+    public void AddSpeed(Collider other)
     {
-        // Destroy the attached GameObject
-        Destroy(gameObject);
+        other.gameObject.GetComponent<FirstPersonController>().MoveSpeed = 100.0f;
     }
-
-    /// <summary>
-    /// Callback function for when a collision occurs
-    /// </summary>
-    /// <param name="collision">Collision event data</param>
-    private void OnCollisionEnter(Collision collision)
+    public void AddJump(Collider other)
     {
-        // Check if the object that
-        // touched me has a 'Player' tag
-        if ((collision.gameObject.tag == "Player") && (gameObject.tag == "coin"));
-        {
-            collision.gameObject.GetComponent<Player>().IncreaseScore(coinpoints);
-            Collected();
-        }
+        other.gameObject.GetComponent<FirstPersonController>().JumpHeight = 100.0f;
     }
-
-    // Used to make the collectibles rotate constantly
-    void Update()
-    {
-        transform.Rotate(0f, 0f, 100 * Time.deltaTime, Space.Self);
-    }
-
-
 }
